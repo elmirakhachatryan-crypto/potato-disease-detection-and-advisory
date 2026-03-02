@@ -1,7 +1,6 @@
 # 🥔 Potato Disease Detection and Advisory System
 ### Կարտոֆիլի հիվանդությունների ճանաչում և խորհրդատվության տրամադրում
-[![NBViewer](https://img.shields.io/badge/Open%20in-NBViewer-orange?logo=jupyter)](https://nbviewer.org/github/elmirakhachatryan-crypto/potato-disease-detection-and-advisory/blob/main/potato-disease-detection-and-advisory.ipynb)
-
+[![NBViewer](https://img.shields.io/badge/Open%20in-NBViewer-orange?logo=jupyter)](https://nbviewer.org/github/elmirakhachatryan-crypto/potato-disease-detection-and-advisory/blob/main/potato-disease-detection-and-advisory.ipynb?flush_cache=true)
 A deep learning-based system that detects potato crop diseases from images and provides treatment recommendations for Armenian farmers.
 
 ---
