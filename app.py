@@ -7,7 +7,6 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 from PIL import Image
-
 st.set_page_config(
     page_title="Կարտոֆիլի ախտորոշիչ",
     page_icon="🥔",
@@ -38,18 +37,16 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "potato_disease_model.keras")
+
 @st.cache_resource
 def load_model():
     try:
-        model = tf.keras.models.load_model(
-    'potato_disease_model.keras',
-    compile=False
-)
+        model = tf.keras.models.load_model(MODEL_PATH, compile=False)
         return model
     except Exception as e:
         st.error(f"Մոդելը չբեռնվեց։ {e}")
         return None
-
 
 DISEASE_INFO = {
     'Potato___healthy': {
