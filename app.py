@@ -41,7 +41,10 @@ st.markdown("""
 @st.cache_resource
 def load_model():
     try:
-        model = tf.keras.models.load_model('potato_disease_model.keras')
+        model = tf.keras.models.load_model(
+    'potato_disease_model.keras',
+    compile=False
+)
         return model
     except Exception as e:
         st.error(f"Մոդելը չբեռնվեց։ {e}")
