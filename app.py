@@ -43,11 +43,11 @@ MODEL_PATH = os.path.join(os.path.dirname(__file__), "potato_disease_model.keras
 @st.cache_resource
 def load_model():
     try:
-       model = tf.keras.models.load_model(
-    MODEL_PATH,
-    compile=False,
-    safe_mode=False
-)
+        model = tf.keras.models.load_model(
+            MODEL_PATH,
+            compile=False,
+            safe_mode=False
+        )
         return model
     except Exception as e:
         st.error(f"Մոդելը չբեռնվեց։ {e}")
