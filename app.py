@@ -6,8 +6,9 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-from PIL import Image
-import os   # ✅ սա ավելացրու
+from PIL import Image 
+import gdown
+import os
 st.set_page_config(
     page_title="Կարտոֆիլի ախտորոշիչ",
     page_icon="🥔",
