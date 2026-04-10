@@ -122,13 +122,18 @@ def main():
 
         if uploaded_file:
             image = Image.open(uploaded_file).convert('RGB')
-            st.image(image, caption="Ձեր նկարը", use_container_width=True)
+           st.image(image, caption="Ձեր նկարը", use_container_width=True)
 
     with col2:
-        if uploaded_file:
-            model = load_model()
-            if model is None:
-                return
+    if uploaded_file:
+        image = Image.open(uploaded_file).convert('RGB')  # տեղափոխում ենք այստեղ
+
+        model = load_model()
+        if model is None:
+            return
+
+        with st.spinner('🔍 Վերլուծում ենք...'):
+            prediction, confidence, all_probs = predict_disease(image, model)
 
             with st.spinner('🔍 Վերլուծում ենք...'):
                 prediction, confidence, all_probs = predict_disease(image, model)
