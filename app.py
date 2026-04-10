@@ -116,17 +116,17 @@ def main():
 
     col1, col2 = st.columns([1, 1])
 
-    with col1:
-        st.markdown("### 📤 Նկար վերբեռնել")
-        uploaded_file = st.file_uploader("Վերբեռնեք կարտոֆիլի տերևի լուսանկարը", type=['jpg', 'jpeg', 'png'])
+   with col1:
+    st.markdown("### 📤 Նկար վերբեռնել")
+    uploaded_file = st.file_uploader("Վերբեռնեք կարտոֆիլի տերևի լուսանկարը", type=['jpg', 'jpeg', 'png'])
 
-        if uploaded_file:
-            image = Image.open(uploaded_file).convert('RGB')
-           st.image(image, caption="Ձեր նկարը", use_container_width=True)
-
-    with col2:
     if uploaded_file:
-        image = Image.open(uploaded_file).convert('RGB')  # տեղափոխում ենք այստեղ
+        image = Image.open(uploaded_file).convert('RGB')
+        st.image(image, caption="Ձեր նկարը", use_container_width=True)
+
+
+with col2:
+    if uploaded_file:
 
         model = load_model()
         if model is None:
@@ -135,8 +135,34 @@ def main():
         with st.spinner('🔍 Վերլուծում ենք...'):
             prediction, confidence, all_probs = predict_disease(image, model)
 
-            with st.spinner('🔍 Վերլուծում ենք...'):
-                prediction, confidence, all_probs = predict_disease(image, model)
+        disease_info = DISEASE_INFO[prediction]
+        severity = disease_info['severity']
+        box_class = 'healthy' if severity == 'low' else ('warning' if severity == 'medium' else 'disease')
+
+        st.markdown(f"""
+        <div class="result-box {box_class}">
+            <h2>{disease_info['name_hy']}</h2>
+            <h3>Վստահություն: {confidence:.1f}%</h3>
+            <p>{disease_info['description']}</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        if disease_info['urgent']:
+            st.error("🚨 ԱՆՀԱՊԱՂ ԳՈՐԾՈՂՈՒԹՅՈՒՆՆԵՐ ՊԱՀԱՆՋՎՈՒՄ ԵՆ!")
+
+        if disease_info['symptoms']:
+            st.markdown("### 🔬 Ախտանիշներ")
+            for symptom in disease_info['symptoms']:
+                st.markdown(f"- {symptom}")
+
+        st.markdown("### 💊 Խորհուրդներ")
+        for rec in disease_info['recommendations']:
+            st.markdown(f"- {rec}")
+
+        st.markdown("### 📊 Բոլոր կանխատեսումները")
+        for cls, prob in sorted(all_probs.items(), key=lambda x: x[1], reverse=True):
+            label = DISEASE_INFO[cls]['name_hy']
+            st.progress(int(prob), text=f"{label}: {prob:.1f}%")
 
             disease_info = DISEASE_INFO[prediction]
             severity = disease_info['severity']
