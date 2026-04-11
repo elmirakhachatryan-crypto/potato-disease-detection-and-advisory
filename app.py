@@ -96,8 +96,7 @@ def predict_disease(image, model):
 
     predictions = model.predict(img_array, verbose=0)
 
-    class_names = ['Potato___Early_blight', 'Potato___healthy', 'Potato___Late_blight']
-
+    class_names = ['Potato___Early_blight', 'Potato___Late_blight', 'Potato___healthy']
     idx = np.argmax(predictions[0])
     cls = class_names[idx]
     confidence = float(predictions[0][idx] * 100)
