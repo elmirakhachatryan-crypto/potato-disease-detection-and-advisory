@@ -39,19 +39,19 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "potato_weights.weights.h5")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "potato_disease_model_fixed.keras")
 @st.cache_resource
 def load_model():
     try:
-        base_model = tf.keras.applications.MobileNetV2(
-            input_shape=(224, 224, 3),
-            include_top=False,
-            weights='imagenet'
+        model = tf.keras.models.load_model(
+            MODEL_PATH,
+            compile=False,
+            safe_mode=False
         )
-        base_model.trainable = True
-        for layer in base_model.layers[:-30]:
-            layer.trainable = False
-
+        return model
+    except Exception as e:
+        st.error(f"Մոդելը չբեռնվեց։ {e}")
+        return None
         model = tf.keras.Sequential([
             base_model,
             tf.keras.layers.GlobalAveragePooling2D(),
