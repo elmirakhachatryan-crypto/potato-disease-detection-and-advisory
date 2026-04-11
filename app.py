@@ -95,7 +95,7 @@ def predict_disease(image, model):
     img_array = np.expand_dims(img_array, axis=0)
 
     predictions = model.predict(img_array, verbose=0)
-
+    
     class_names = ['Potato___Early_blight', 'Potato___Late_blight', 'Potato___healthy']
     idx = np.argmax(predictions[0])
     cls = class_names[idx]
