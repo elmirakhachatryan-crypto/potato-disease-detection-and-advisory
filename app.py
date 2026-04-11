@@ -39,7 +39,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-MODEL_PATH = os.path.join(os.path.dirname(__file__), "potato_disease_model_fixed.keras")
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "potato_final.keras")
 @st.cache_resource
 def load_model():
     try:
